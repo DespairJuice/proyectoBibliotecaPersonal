@@ -18,10 +18,12 @@ public class LibroControlador {
 
     @PostMapping
     public ResponseEntity<?> registrarLibro(@RequestBody Libro libro) {
+        System.out.println("Intentando registrar libro: " + libro);
         try {
             Libro nuevo = libroServicio.registrarLibro(libro);
             return ResponseEntity.ok(nuevo);
         } catch (Exception e) {
+            e.printStackTrace(); // Esto mostrará el error real en consola
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
