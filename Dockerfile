@@ -2,7 +2,6 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
 COPY pom.xml ./
-COPY .mvn .mvn
 COPY src ./src
 RUN mvn -B -e -ntp clean package -DskipTests
 
