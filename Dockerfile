@@ -1,9 +1,10 @@
 # Build stage
 FROM maven:3.9.6-eclipse-temurin-17 AS builder
 WORKDIR /app
-COPY pom.xml mvnw mvnw.cmd .mvn ./
+COPY pom.xml ./
+COPY .mvn .mvn
 COPY src ./src
-RUN mvn -B clean package -DskipTests
+RUN mvn -B -e -ntp clean package -DskipTests
 
 # Runtime stage
 FROM eclipse-temurin:17-jre-alpine
