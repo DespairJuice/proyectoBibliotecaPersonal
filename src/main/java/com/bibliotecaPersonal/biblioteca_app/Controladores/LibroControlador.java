@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/")
 public class LibroControlador {
@@ -16,6 +17,7 @@ public class LibroControlador {
     @Autowired
     private LibroServicio libroServicio;
 
+    @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<?> registrarLibro(@RequestBody Libro libro) {
         System.out.println("Intentando registrar libro: " + libro);
