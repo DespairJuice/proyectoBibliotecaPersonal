@@ -1,19 +1,21 @@
 package com.bibliotecaPersonal.biblioteca_app.Controladores;
 
-import org.springframework.http.ResponseEntity;
+import com.bibliotecaPersonal.biblioteca_app.Persistencia.Entidades.Libro;
+import com.bibliotecaPersonal.biblioteca_app.Servicios.LibroServicio;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class HomeControlador {
 
+    @Autowired
+    private LibroServicio libroServicio;
+
     @GetMapping("/")
-    public ResponseEntity<Map<String, String>> home() {
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "Welcome to Biblioteca Personal API");
-        return ResponseEntity.ok(response);
+    public List<Libro> home() {
+        return libroServicio.buscarPorTitulo(""); // Devuelve todos si vacío
     }
 }
