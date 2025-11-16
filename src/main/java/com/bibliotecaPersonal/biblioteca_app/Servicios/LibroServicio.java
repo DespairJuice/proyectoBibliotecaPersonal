@@ -22,13 +22,21 @@ public class LibroServicio {
 	}
 
 	public Libro actualizarLibro(String isbnOriginal, Libro libroActualizado) throws Exception {
-		Optional<Libro> libroExistente = libroRepositorio.findById(isbnOriginal);
-		if (libroExistente.isEmpty()) {
+		Optional<Libro> libroExistenteOpt = libroRepositorio.findById(isbnOriginal);
+		if (libroExistenteOpt.isEmpty()) {
 			throw new Exception("Libro no encontrado");
 		}
+		Libro libroExistente = libroExistenteOpt.get();
 		validarLibro(libroActualizado, false, isbnOriginal);
-		libroActualizado.setUltimaActualizacion(LocalDateTime.now());
-		return libroRepositorio.save(libroActualizado);
+		// Copiar campos actualizables al objeto existente
+		libroExistente.setNombre(libroActualizado.getNombre());
+		libroExistente.setAutor(libroActualizado.getAutor());
+		libroExistente.setEstadoLectura(libroActualizado.getEstadoLectura());
+		libroExistente.setCalificacion(libroActualizado.getCalificacion());
+		libroExistente.setNotasPersonales(libroActualizado.getNotasPersonales());
+		libroExistente.setIsbn(libroActualizado.getIsbn()); // En caso de cambio de ISBN
+		libroExistente.setUltimaActualizacion(LocalDateTime.now());
+		return libroRepositorio.save(libroExistente);
 	}
 
 	public void eliminarLibro(String isbn) throws Exception {
