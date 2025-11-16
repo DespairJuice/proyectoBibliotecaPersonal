@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +18,7 @@ public class LibroServicio {
 
 	public Libro registrarLibro(Libro libro) throws Exception {
 		validarLibro(libro, true);
-		libro.setUltimaActualizacion(LocalDateTime.now());
+		libro.setUltimaActualizacion(LocalDateTime.now(ZoneId.of("America/Bogota")));
 		return libroRepositorio.save(libro);
 	}
 
@@ -35,7 +36,7 @@ public class LibroServicio {
 		libroExistente.setCalificacion(libroActualizado.getCalificacion());
 		libroExistente.setNotasPersonales(libroActualizado.getNotasPersonales());
 		libroExistente.setIsbn(libroActualizado.getIsbn()); // En caso de cambio de ISBN
-		libroExistente.setUltimaActualizacion(LocalDateTime.now());
+		libroExistente.setUltimaActualizacion(LocalDateTime.now(ZoneId.of("America/Bogota")));
 		return libroRepositorio.save(libroExistente);
 	}
 
